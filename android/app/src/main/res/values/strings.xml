@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Zamin ro’yxat</string>
+    <string name="title_activity_main">Zamin ro’yxat</string>
+    <string name="package_name">uz.zamin.royxat</string>
+    <string name="custom_url_scheme">uz.zamin.royxat</string>
+</resources>

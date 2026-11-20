@@ -1,0 +1,9 @@
+ZAMIN RO'YXAT - APK YIG'ISH
+1. GitHub'da yangi repository oching: zamin-royxat
+2. Codespace oching, shu zip'ni yuklang, terminalda:
+   unzip -o zamin-royxat-apk-loyiha.zip
+   rm zamin-royxat-apk-loyiha.zip
+   git add -A
+   git commit -m "Zamin royxat"
+   git push
+3. Actions bo'limida APK yig'ilishini kuting, Artifacts'dan zamin-royxat-apk ni yuklab oling.
