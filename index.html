@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zamin Yulduzlari – ro’yxatga olish</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%AD%90%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --bg:#eef1f7;--surface:#fff;--ink:#14213d;--muted:#5b6479;--line:#d5dbe8;
+  --star:#f2b705;--accent:#1f4fd8;--accent-ink:#fff;--danger:#b3261e;--ok:#17794a;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0e1424;--surface:#172036;--ink:#eaeefb;--muted:#9aa6c4;--line:#2a3555;
+    --star:#f2b705;--accent:#7aa2ff;--accent-ink:#0e1424;--danger:#ff8a80;--ok:#6fd6a0;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0e1424;--surface:#172036;--ink:#eaeefb;--muted:#9aa6c4;--line:#2a3555;
+  --star:#f2b705;--accent:#7aa2ff;--accent-ink:#0e1424;--danger:#ff8a80;--ok:#6fd6a0;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:20px 16px 48px}
+header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+header svg{width:44px;height:44px;flex:none}
+h1{font-size:clamp(1.5rem,4vw,2.1rem);line-height:1.1;margin:0;font-weight:800;letter-spacing:-.01em}
+header p{margin:2px 0 0;color:var(--muted);font-size:.95rem}
+.layout{display:grid;gap:18px;grid-template-columns:1fr}
+@media(min-width:880px){.layout{grid-template-columns:340px 1fr;align-items:start}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+h2{font-size:1.05rem;margin:0 0 14px;font-weight:600}
+label,.lbl{display:block;font-size:.9rem;font-weight:500;margin:0 0 6px}
+.field{margin-bottom:14px}
+input[type=text],input[type=tel],input[type=search],select{
+  width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:10px;padding:11px 12px;min-height:44px}
+input:focus-visible,select:focus-visible,button:focus-visible,.chip input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-weight:500}
+.chip input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{font:inherit;cursor:pointer;border-radius:10px;min-height:44px;padding:0 16px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:500}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600;width:100%}
+button.danger{color:var(--danger)}
+button.armed{background:var(--danger);color:#fff;border-color:var(--danger)}
+.msg{min-height:1.4em;margin:10px 0 0;font-size:.92rem}
+.msg.err{color:var(--danger)}.msg.ok{color:var(--ok)}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:6px 12px;font-size:.9rem;background:var(--bg)}
+.stat b{font-weight:800}
+.stat.total{border-color:var(--star);box-shadow:inset 0 0 0 1px var(--star)}
+.tools{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:14px}
+@media(min-width:560px){.tools{grid-template-columns:1fr 150px}}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.list{display:grid;gap:8px}
+.item{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--bg)}
+.no{grid-row:span 2;font-weight:800;font-size:.85rem;color:#14213d;background:var(--star);padding:6px 9px;border-radius:8px;white-space:nowrap}
+.name{font-weight:600;overflow-wrap:anywhere}
+.meta{color:var(--muted);font-size:.88rem;grid-column:2}
+.item button{grid-column:3;grid-row:1 / span 2;min-height:40px;padding:0 12px;font-size:.88rem}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:28px 16px;text-align:center;color:var(--muted)}
+.copybox{display:none;margin-bottom:14px}
+.copybox textarea{width:100%;height:140px;font:13px/1.4 ui-monospace,Menlo,Consolas,monospace;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px}
+.printhead{display:none}
+@media print{
+  body{background:#fff;color:#000}
+  .noprint,.tools,.actions,.stats,.copybox,header,.item button{display:none!important}
+  .layout{display:block}
+  .panel{border:0;padding:0}
+  .printhead{display:block;margin-bottom:12px}
+  .printhead h1{font-size:18pt}
+  .item{border:0;border-bottom:1px solid #999;border-radius:0;background:#fff;break-inside:avoid;padding:6px 0}
+  .no{background:none;color:#000;border:1px solid #000}
+  .meta{color:#000}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 3l6.2 13.4 14.6 1.7-10.9 9.9 3 14.4L24 34.7 11.1 42.4l3-14.4L3.2 18.1l14.6-1.7z" fill="#f2b705"/></svg>
+    <div>
+      <h1>Zamin Yulduzlari</h1>
+      <p>Olimpiada ishtirokchilarini ro’yxatga olish · 2–6-sinflar</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <section class="panel noprint" aria-labelledby="fh">
+      <h2 id="fh">Yangi ishtirokchi</h2>
+      <div class="field">
+        <label for="fio">Familiyasi va ismi</label>
+        <input id="fio" type="text" autocomplete="off" placeholder="Masalan: Karimov Aziz">
+      </div>
+      <div class="field">
+        <span class="lbl" id="gl">Sinfi</span>
+        <div class="chips" role="radiogroup" aria-labelledby="gl" id="grades"></div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="lit">Sinf harfi</label>
+          <input id="lit" type="text" maxlength="2" autocomplete="off" placeholder="A, B, V…">
+        </div>
+        <div class="field">
+          <label for="tel">Ota-ona telefoni</label>
+          <input id="tel" type="tel" inputmode="tel" autocomplete="off" placeholder="90 123 45 67">
+        </div>
+      </div>
+      <div class="field">
+        <span class="lbl" id="sl">Fan</span>
+        <div class="chips" role="radiogroup" aria-labelledby="sl" id="subjects"></div>
+      </div>
+      <button class="primary" id="add" type="button">Roʻyxatga qoʻshish</button>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="lh">
+      <div class="printhead"><h1>Zamin Yulduzlari – ishtirokchilar roʻyxati</h1></div>
+      <h2 id="lh" class="noprint">Roʻyxat</h2>
+      <div class="stats" id="stats"></div>
+      <div class="tools">
+        <input id="q" type="search" placeholder="Ism boʻyicha qidirish" aria-label="Ism boʻyicha qidirish">
+        <select id="fg" aria-label="Sinf boʻyicha saralash"></select>
+      </div>
+      <div class="actions">
+        <button id="copy" type="button">Jadvalni nusxalash</button>
+        <button id="print" type="button">Chop etish</button>
+        <button id="clear" type="button" class="danger">Hammasini oʻchirish</button>
+      </div>
+      <div class="copybox" id="copybox">
+        <p class="msg">Matn belgilandi. Ctrl+C bosib nusxalang, soʻng Excel yoki Google Sheets’ga qoʻying.</p>
+        <textarea id="ta" readonly></textarea>
+      </div>
+      <div class="list" id="list"></div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='zamin-yulduzlari-v1';
+  var GRADES=[2,3,4,5,6];
+  var SUBJECTS=['Matematika','Ingliz tili','Ikkalasi'];
+  var data={next:1,items:[]};
+  var $=function(id){return document.getElementById(id)};
+  var armed={};
+
+  function load(){
+    try{
+      var raw=localStorage.getItem(KEY);
+      if(raw){var d=JSON.parse(raw);if(d&&Array.isArray(d.items)){data=d;if(!data.next)data.next=d.items.length+1}}
+    }catch(e){}
+  }
+  function save(){
+    try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){say('Saqlab boʻlmadi: brauzer xotirasi yopiq.','err')}
+  }
+  function say(t,k){var m=$('msg');m.textContent=t;m.className='msg '+(k||'')}
+  function num(n){return 'ZY-'+String(n).padStart(3,'0')}
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+
+  function chips(box,name,vals,label){
+    vals.forEach(function(v,i){
+      var l=el('label','chip');
+      var inp=document.createElement('input');
+      inp.type='radio';inp.name=name;inp.value=v;
+      if(i===0&&name==='subj')inp.checked=true;
+      var sp=el('span',null,label?label(v):v);
+      l.appendChild(inp);l.appendChild(sp);box.appendChild(l);
+    });
+  }
+  function picked(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:''}
+
+  function normName(s){
+    return s.replace(/\s+/g,' ').trim().split(' ').map(function(w){
+      return w.charAt(0).toLocaleUpperCase('uz')+w.slice(1).toLocaleLowerCase('uz');
+    }).join(' ');
+  }
+  function normPhone(s){
+    var d=s.replace(/\D/g,'');
+    if(d.length===12&&d.indexOf('998')===0)d=d.slice(3);
+    if(d.length===9)return '+998 '+d.slice(0,2)+' '+d.slice(2,5)+' '+d.slice(5,7)+' '+d.slice(7);
+    return s.trim();
+  }
+
+  function add(){
+    var fio=normName($('fio').value);
+    var g=picked('grade');
+    var lit=$('lit').value.trim().toLocaleUpperCase('uz');
+    var tel=$('tel').value.trim();
+    var subj=picked('subj');
+    if(fio.split(' ').length<2){say('Familiya va ismni toʻliq yozing.','err');$('fio').focus();return}
+    if(!g){say('Sinfni tanlang.','err');return}
+    var dup=data.items.some(function(x){return x.fio.toLocaleLowerCase('uz')===fio.toLocaleLowerCase('uz')&&String(x.grade)===g});
+    if(dup){say('Bu oʻquvchi shu sinfda allaqachon roʻyxatda.','err');return}
+    var it={no:data.next,fio:fio,grade:+g,lit:lit,tel:tel?normPhone(tel):'',subj:subj};
+    data.items.push(it);data.next++;save();
+    say(fio+' qoʻshildi. Raqami: '+num(it.no),'ok');
+    $('fio').value='';$('tel').value='';$('fio').focus();
+    render();
+  }
+
+  function visible(){
+    var q=$('q').value.trim().toLocaleLowerCase('uz'),g=$('fg').value;
+    return data.items.filter(function(x){
+      return (!g||String(x.grade)===g)&&(!q||x.fio.toLocaleLowerCase('uz').indexOf(q)>-1);
+    });
+  }
+
+  function render(){
+    var st=$('stats');st.textContent='';
+    var t=el('div','stat total');t.appendChild(el('b',null,String(data.items.length)));t.appendChild(document.createTextNode(' ishtirokchi'));st.appendChild(t);
+    GRADES.forEach(function(g){
+      var c=data.items.filter(function(x){return x.grade===g}).length;
+      var s=el('div','stat');s.appendChild(el('b',null,String(c)));s.appendChild(document.createTextNode(' · '+g+'-sinf'));st.appendChild(s);
+    });
+    ['Matematika','Ingliz tili'].forEach(function(f){
+      var c=data.items.filter(function(x){return x.subj===f||x.subj==='Ikkalasi'}).length;
+      var s=el('div','stat');s.appendChild(el('b',null,String(c)));s.appendChild(document.createTextNode(' · '+f));st.appendChild(s);
+    });
+    var list=$('list');list.textContent='';
+    var rows=visible();
+    if(!rows.length){
+      list.appendChild(el('div','empty',data.items.length?'Hech narsa topilmadi. Qidiruv yoki sinf tanlovini oʻzgartiring.':'Hali ishtirokchi yoʻq. Chapdagi shaklga birinchi oʻquvchini yozing.'));
+      return;
+    }
+    rows.slice().reverse().forEach(function(x){
+      var r=el('div','item');
+      r.appendChild(el('div','no',num(x.no)));
+      r.appendChild(el('div','name',x.fio));
+      var meta=x.grade+'-sinf'+(x.lit?' “'+x.lit+'”':'')+' · '+x.subj+(x.tel?' · '+x.tel:'');
+      r.appendChild(el('div','meta',meta));
+      var b=el('button','danger','Oʻchirish');b.type='button';
+      b.setAttribute('aria-label',x.fio+' ni oʻchirish');
+      b.onclick=function(){
+        if(armed['i'+x.no]){
+          data.items=data.items.filter(function(y){return y.no!==x.no});save();render();say(x.fio+' oʻchirildi.','ok');
+        }else{armed['i'+x.no]=1;b.textContent='Tasdiqlash';b.className='armed';
+          setTimeout(function(){delete armed['i'+x.no];if(b.isConnected){b.textContent='Oʻchirish';b.className='danger'}},4000)}
+      };
+      r.appendChild(b);list.appendChild(r);
+    });
+  }
+
+  function tableText(){
+    var head=['Raqam','Familiya, ism','Sinf','Harf','Fan','Telefon'].join('\t');
+    var rows=data.items.slice().sort(function(a,b){return a.no-b.no}).map(function(x){
+      return [num(x.no),x.fio,x.grade,x.lit,x.subj,x.tel].join('\t');
+    });
+    return [head].concat(rows).join('\n');
+  }
+  function copy(){
+    if(!data.items.length){say('Nusxalash uchun roʻyxat boʻsh.','err');return}
+    var txt=tableText(),ta=$('ta'),box=$('copybox');
+    ta.value=txt;
+    var done=function(){say('Jadval nusxalandi. Excel yoki Google Sheets’ga qoʻying.','ok');box.style.display='none'};
+    var manual=function(){box.style.display='block';ta.focus();ta.select()};
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,manual)}else manual();
+    }catch(e){manual()}
+  }
+
+  $('add').onclick=add;
+  $('fio').addEventListener('keydown',function(e){if(e.key==='Enter')add()});
+  $('q').oninput=render;$('fg').onchange=render;
+  $('copy').onclick=copy;
+  $('print').onclick=function(){try{window.print()}catch(e){say('Chop etish bu yerda ochilmadi.','err')}};
+  var cl=$('clear');
+  cl.onclick=function(){
+    if(!data.items.length){say('Roʻyxat allaqachon boʻsh.','err');return}
+    if(armed.all){data={next:1,items:[]};save();render();say('Roʻyxat tozalandi.','ok');armed.all=0;cl.textContent='Hammasini oʻchirish';cl.className='danger'}
+    else{armed.all=1;cl.textContent='Tasdiqlang: hammasi oʻchadi';cl.className='armed';
+      setTimeout(function(){armed.all=0;cl.textContent='Hammasini oʻchirish';cl.className='danger'},4000)}
+  };
+
+  chips($('grades'),'grade',GRADES,function(g){return g+'-sinf'});
+  chips($('subjects'),'subj',SUBJECTS);
+  var fg=$('fg');
+  var o=el('option',null,'Barcha sinflar');o.value='';fg.appendChild(o);
+  GRADES.forEach(function(g){var o=el('option',null,g+'-sinf');o.value=g;fg.appendChild(o)});
+  load();render();
+})();
+</script>
+</body>
+</html>
